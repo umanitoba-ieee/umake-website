@@ -59,14 +59,16 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 1 - SETTINGS.shadingIntens
 scene.add(ambientLight);
 
 const dirLight = new THREE.DirectionalLight(0xffffff, SETTINGS.shadingIntensity);
-dirLight.position.set(10, 20, 10);
+// dirLight.position.set(10, 20, 10);
+dirLight.position.set(10, 40, 30);
 scene.add(dirLight);
 
 // --- Background Grid ---
 const gridHelper = new THREE.GridHelper(SETTINGS.spawnRange * 2, SETTINGS.spawnRange * 2, 0xffffff, 0xffffff);
 gridHelper.material.opacity = SETTINGS.gridOpacity;
 gridHelper.material.transparent = true;
-gridHelper.position.y = -0.501; // Slightly below voxels to prevent flickering
+// gridHelper.position.y = -0.501; // Slightly below voxels to prevent flickering
+gridHelper.position.y = -1.0;
 scene.add(gridHelper);
 
 // --- Voxel Logic ---
