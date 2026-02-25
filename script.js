@@ -44,7 +44,8 @@ const SETTINGS = {
 // --- Setup ---
 const canvas = document.querySelector('#voxel-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setPixelRatio(1);
 const scene = new THREE.Scene();
 
 // --- Isometric Camera ---
