@@ -1,0 +1,114 @@
+[
+  {
+    "item": "Breadboards",
+    "description": "Extra breadboards",
+    "image": "breadboard.webp",
+    "returned": "TRUE",
+    "category": "Electronics",
+    "availability": "Available"
+  },
+  {
+    "item": "9g servos",
+    "description": "extra servos",
+    "image": "servo.webp",
+    "returned": "TRUE",
+    "category": "Peripherals",
+    "availability": "Available"
+  },
+  {
+    "item": "Pin Headers",
+    "description": "Male, Female, 90deg,",
+    "image": "pinheaders.webp",
+    "returned": "FALSE",
+    "category": "Electronics",
+    "availability": "Available"
+  },
+  {
+    "item": "Popsicle Sticks",
+    "description": "",
+    "image": "popsicle.webp",
+    "returned": "FALSE",
+    "category": "Materials",
+    "availability": "Available"
+  },
+  {
+    "item": "Cardboard",
+    "description": "",
+    "image": "cardboard.webp",
+    "returned": "FALSE",
+    "category": "Materials",
+    "availability": "Available"
+  },
+  {
+    "item": "ESP-01 (8266)",
+    "description": "Plus programmer boards",
+    "image": "esp8266.webp",
+    "returned": "TRUE",
+    "category": "MCU",
+    "availability": "Available"
+  },
+  {
+    "item": "Jumper Wires",
+    "description": "",
+    "image": "wires.webp",
+    "returned": "FALSE",
+    "category": "Electronics",
+    "availability": "Available"
+  },
+  {
+    "item": "10 Segment LED Gauge",
+    "description": "CS2510BGYR",
+    "image": "10ledgauge.webp",
+    "returned": "FALSE",
+    "category": "Electronics",
+    "availability": "Available"
+  },
+  {
+    "item": "Wemos D1 Mini",
+    "description": "",
+    "image": "wemos.webp",
+    "returned": "TRUE",
+    "category": "MCU",
+    "availability": "Available"
+  },
+  {
+    "item": "16-bit I2C IO Expander",
+    "description": "",
+    "image": "ioexp.webp",
+    "returned": "TRUE",
+    "category": "Peripheral",
+    "availability": "Available"
+  },
+  {
+    "item": "Analog Joysticks",
+    "description": "",
+    "image": "joystick.webp",
+    "returned": "FALSE",
+    "category": "Peripheral",
+    "availability": "Available"
+  },
+  {
+    "item": "LED Stop Light Board",
+    "description": "",
+    "image": "ledstop.webp",
+    "returned": "FALSE",
+    "category": "Peripheral",
+    "availability": "Available"
+  },
+  {
+    "item": "Heat Shrink",
+    "description": "",
+    "image": "heatshrink.webp",
+    "returned": "FALSE",
+    "category": "Electronics",
+    "availability": "Available"
+  },
+  {
+    "item": "Chassis and Wheels",
+    "description": "",
+    "image": "chassis.webp",
+    "returned": "TRUE",
+    "category": "Other",
+    "availability": "Available"
+  }
+]

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/favicon_um.ico" type="image/x-icon">
+    <title>Inventory Manager</title>
+    <style>
+        /* --- CONFIGURABLE THEME COLOURS --- */
+        :root {
+            --bg-color: #0261a0;
+            --container-bg: #ffffff;
+            --primary-color: #FFC72C;
+            --accent-color: #0984e3;
+            --border-color: #dfe6e9;
+            --text-color: #2d3436;
+            --header-text: #000000;
+            --row-hover: #f1f2f6;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 300;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        /* Table Container for Rounded Borders */
+        .table-container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--container-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden; /* Clips the table corners to the border-radius */
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Essential for straight inner lines */
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* Remove far right border for cleanliness */
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+
+        /* Remove bottom border from last row */
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        th:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Image Styling */
+        .item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #eee;
+        }
+
+        tr:hover {
+            background-color: var(--row-hover);
+        }
+
+        /* Sorting Indicators */
+        th.sort-asc::after { content: " ↑"; }
+        th.sort-desc::after { content: " ↓"; }
+
+        /* Status Pills */
+        .status-pill {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .available { background: #dff9fb; color: #0097e6; }
+        .unavailable { background: #fab1a0; color: #d63031; }
+
+    </style>
+</head>
+<body>
+
+    <h1>Inventory List</h1>
+
+    <div class="table-container">
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Item</th>
+                    <th onclick="sortTable(1)">Description</th>
+                    <th>Image</th> <th onclick="sortTable(3)">Must be Returned?</th>
+                    <th onclick="sortTable(4)">Category</th>
+                    <th onclick="sortTable(5)">Availability</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Load Data from JSON file
+        async function loadInventory() {
+            try {
+                const response = await fetch('inventory.json');
+                const data = await response.json();
+                renderTable(data);
+            } catch (error) {
+                console.error("Error loading JSON:", error);
+                document.getElementById('tableBody').innerHTML = '<tr><td colspan="6" style="text-align:center">Error loading data. Make sure inventory.json exists.</td></tr>';
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            data.forEach(item => {
+                const row = `
+                    <tr>
+                        <td><strong>${item.item}</strong></td>
+                        <td>${item.description}</td>
+                        <td><img src="./images/${item.image}" class="item-img" alt="${item.item}"></td>
+                        <td>${item.returned == "TRUE" ? 'Yes' : 'No'}</td>
+                        <td>${item.category}</td>
+                        <td><span class="status-pill ${item.availability.toLowerCase() === 'available' ? 'available' : 'unavailable'}">${item.availability}</span></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Sorting Logic
+        function sortTable(n) {
+            const table = document.getElementById("inventoryTable");
+            let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            switching = true;
+            dir = "asc"; 
+            
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount ++;      
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+            updateSortArrows(n, dir);
+        }
+
+        function updateSortArrows(colIndex, direction) {
+            const headers = document.querySelectorAll('th');
+            headers.forEach((h, i) => {
+                h.classList.remove('sort-asc', 'sort-desc');
+                if(i === colIndex) {
+                    h.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+                }
+            });
+        }
+
+        loadInventory();
+    </script>
+</body>
+</html>
