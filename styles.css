@@ -307,3 +307,31 @@ footer {
   padding: 0.5rem;
   margin: 0;
 }
+
+.tournament-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tournament-table th:first-child,
+.tournament-table td:first-child {
+  width: 20%;
+}
+
+.tournament-table th:nth-child(2),
+.tournament-table td:nth-child(2) {
+  width: 50%;
+}
+
+.tournament-table th:nth-child(3),
+.tournament-table td:nth-child(3) {
+  width: 30%;
+}
+
+.tournament-table th,
+.tournament-table td {
+  border: 1px solid #000;
+  background: #fff2;
+  padding: 0.5rem;
+  margin: 0;
+}
